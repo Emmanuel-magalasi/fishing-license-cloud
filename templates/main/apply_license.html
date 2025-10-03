@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">Apply for Fishing License</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.full_name.label(class="form-label") }}
+                            {{ form.full_name(class="form-control" + (" is-invalid" if form.full_name.errors else "")) }}
+                            {% for error in form.full_name.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.id_number.label(class="form-label") }}
+                            {{ form.id_number(class="form-control" + (" is-invalid" if form.id_number.errors else "")) }}
+                            {% for error in form.id_number.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.fishing_zone.label(class="form-label") }}
+                            {{ form.fishing_zone(class="form-select" + (" is-invalid" if form.fishing_zone.errors else "")) }}
+                            {% for error in form.fishing_zone.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.duration.label(class="form-label") }}
+                            {{ form.duration(class="form-select" + (" is-invalid" if form.duration.errors else "")) }}
+                            {% for error in form.duration.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <h5 class="alert-heading">Important Information</h5>
+                        <ul class="mb-0">
+                            <li>Please ensure all information provided is accurate and matches your identification documents.</li>
+                            <li>License applications are typically processed within 2-3 business days.</li>
+                            <li>You will be notified via email once your application has been reviewed.</li>
+                        </ul>
+                    </div>
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

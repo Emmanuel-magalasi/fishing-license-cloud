@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="jumbotron text-center bg-light p-5 rounded-3">
+    <h1 class="display-4">Welcome to the Fishing License System</h1>
+    <p class="lead">Apply for your fishing license online and manage your applications with ease.</p>
+    {% if not current_user.is_authenticated %}
+    <hr class="my-4">
+    <p>Get started by creating an account or logging in to your existing account.</p>
+    <div class="d-grid gap-2 d-md-block">
+        <a class="btn btn-primary btn-lg me-2" href="{{ url_for('auth.register') }}" role="button">Register</a>
+        <a class="btn btn-outline-primary btn-lg" href="{{ url_for('auth.login') }}" role="button">Login</a>
+    </div>
+    {% else %}
+    <hr class="my-4">
+    <p>Access your dashboard to view your licenses or apply for a new one.</p>
+    <div class="d-grid gap-2 d-md-block">
+        <a class="btn btn-primary btn-lg me-2" href="{{ url_for('main.dashboard') }}" role="button">Go to Dashboard</a>
+        <a class="btn btn-success btn-lg" href="{{ url_for('main.apply_license') }}" role="button">Apply for License</a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Easy Application Process</h5>
+                <p class="card-text">Complete your fishing license application in minutes with our streamlined online process.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Digital License Management</h5>
+                <p class="card-text">Access and download your approved fishing licenses anytime, anywhere.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Quick Processing</h5>
+                <p class="card-text">Get your fishing license approved quickly by our dedicated administrative team.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

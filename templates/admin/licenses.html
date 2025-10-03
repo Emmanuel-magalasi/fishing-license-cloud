@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2>Manage Licenses</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">All Licenses</h3>
+            </div>
+            <div class="card-body">
+                {% if licenses %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Applicant</th>
+                                <th>Fishing Zone</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th>Applied Date</th>
+                                <th>Approved Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for license in licenses %}
+                            <tr>
+                                <td>{{ license.id }}</td>
+                                <td>{{ license.full_name }}</td>
+                                <td>{{ license.fishing_zone }}</td>
+                                <td>{{ license.duration }} months</td>
+                                <td>
+                                    <span class="badge {% if license.status == 'approved' %}bg-success
+                                                     {% elif license.status == 'rejected' %}bg-danger
+                                                     {% else %}bg-warning{% endif %}">
+                                        {{ license.status.title() }}
+                                    </span>
+                                </td>
+                                <td>{{ license.created_at.strftime('%Y-%m-%d') }}</td>
+                                <td>{{ license.approved_at.strftime('%Y-%m-%d') if license.approved_at else 'N/A' }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        {% if license.status == 'pending' %}
+                                        <a href="{{ url_for('admin.process_license', license_id=license.id, action='approve') }}" 
+                                           class="btn btn-success btn-sm">Approve</a>
+                                        <a href="{{ url_for('admin.process_license', license_id=license.id, action='reject') }}" 
+                                           class="btn btn-danger btn-sm">Reject</a>
+                                        {% endif %}
+                                        {% if license.status == 'approved' and license.pdf_path %}
+                                        <a href="{{ url_for('admin.download_license', license_id=license.id) }}" 
+                                           class="btn btn-primary btn-sm">Download PDF</a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <p class="mb-0">No license applications found.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

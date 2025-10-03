@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: fishing-license-app
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://fishing_license_db_user:PTf8bFEsRRGopAOAeLVXcYVMazuPOA4O@dpg-d3fmcee3jp1c73eou9r0-a.oregon-postgres.render.com/fishing_license_db
+      - key: SECRET_KEY
+        value: EmmanuelFishingAppSecret2025!

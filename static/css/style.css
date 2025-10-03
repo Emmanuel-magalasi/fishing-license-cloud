@@ -1,0 +1,122 @@
+/* Global Styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Cards */
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+    border: none;
+    margin-bottom: 1rem;
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+/* Tables */
+.table th {
+    border-top: none;
+    background-color: #f8f9fa;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Forms */
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    border-color: #80bdff;
+}
+
+/* Buttons */
+.btn {
+    font-weight: 500;
+}
+
+.btn-group .btn {
+    margin: 0 2px;
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+    box-shadow: 0 -2px 4px rgba(0,0,0,.05);
+}
+
+/* Dashboard Stats */
+.card.bg-primary, .card.bg-success, .card.bg-info {
+    transition: transform 0.2s;
+}
+
+.card.bg-primary:hover, .card.bg-success:hover, .card.bg-info:hover {
+    transform: translateY(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .table-responsive {
+        margin-bottom: 1rem;
+        border: none;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .btn-group .btn {
+        margin: 2px 0;
+    }
+}
+
+/* License Status Badges */
+.badge {
+    padding: 8px 12px;
+    font-weight: 500;
+}
+
+/* QR Code Display */
+.qr-code-container {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
