@@ -1,146 +1,123 @@
-/* Global Styles */
-body {
-    min-height: 100vh;
+.hero-section {
+    background: url('../images/hero-bg.svg') no-repeat center center;
+    background-size: cover;
+    min-height: 500px;
+    position: relative;
     display: flex;
-    flex-direction: column;
-    background-color: #f8f9fa;
+    align-items: center;
+    justify-content: center;
 }
 
-main {
-    flex: 1;
+.hero-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
-/* Navigation */
-.navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+.hero-content {
+    position: relative;
+    z-index: 2;
 }
 
-.navbar-brand {
-    font-weight: bold;
+.feature-card {
+    transition: transform 0.3s ease;
+    background: #ffffff;
 }
 
-/* Cards */
-.card {
-    box-shadow: 0 2px 4px rgba(0,0,0,.05);
-    border: none;
-    margin-bottom: 1rem;
+.feature-card:hover {
+    transform: translateY(-5px);
 }
 
-.card-header {
-    border-bottom: none;
+.feature-icon {
+    color: #0d6efd;
 }
 
-/* Tables */
-.table th {
-    border-top: none;
-    background-color: #f8f9fa;
+.location-card {
+    overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
-.table td {
-    vertical-align: middle;
+.location-card:hover {
+    transform: translateY(-5px);
 }
 
-/* Forms */
-.form-control:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-    border-color: #80bdff;
+.location-card img {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.password-field-container {
+.location-card:hover img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 400px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .feature-card,
+    .location-card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Password visibility toggle styles */
+.password-toggle {
     position: relative;
 }
 
-.password-toggle-btn {
+.password-toggle .toggle-icon {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
-    padding: 0;
     cursor: pointer;
     color: #6c757d;
 }
 
-.password-toggle-btn:hover {
+/* Form styles */
+.form-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.form-section h2 {
+    color: #0d6efd;
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: 500;
     color: #495057;
 }
 
-.password-toggle-btn:focus {
-    outline: none;
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
-/* Buttons */
-.btn {
-    font-weight: 500;
+.btn-primary {
+    padding: 0.5rem 1.5rem;
 }
 
-.btn-group .btn {
-    margin: 0 2px;
-}
-
-/* Alerts */
-.alert {
-    border: none;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.05);
-}
-
-/* Footer */
+/* Footer styles */
 .footer {
-    margin-top: auto;
-    box-shadow: 0 -2px 4px rgba(0,0,0,.05);
+    background: #f8f9fa;
+    padding: 2rem 0;
+    margin-top: 3rem;
 }
 
-/* Dashboard Stats */
-.card.bg-primary, .card.bg-success, .card.bg-info {
-    transition: transform 0.2s;
-}
-
-.card.bg-primary:hover, .card.bg-success:hover, .card.bg-info:hover {
-    transform: translateY(-5px);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .table-responsive {
-        margin-bottom: 1rem;
-        border: none;
-    }
-    
-    .btn-group {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .btn-group .btn {
-        margin: 2px 0;
-    }
-}
-
-/* License Status Badges */
-.badge {
-    padding: 8px 12px;
-    font-weight: 500;
-}
-
-/* QR Code Display */
-.qr-code-container {
-    text-align: center;
-    padding: 20px;
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.05);
-}
-
-/* Print Styles */
-@media print {
-    .no-print {
-        display: none;
-    }
-    
-    .card {
-        box-shadow: none;
-        border: 1px solid #ddd;
-    }
+.footer .text-muted {
+    color: #6c757d;
 }

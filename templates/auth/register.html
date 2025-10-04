@@ -1,44 +1,188 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h2 class="card-title mb-0">Register</h2>
+                <h2 class="card-title mb-0">Register for Hunting and Fishing License</h2>
             </div>
             <div class="card-body">
-                <form method="POST" action="">
+                <form method="POST" action="" class="needs-validation" novalidate>
                     {{ form.hidden_tag() }}
-                    <div class="mb-3">
-                        {{ form.username.label(class="form-label") }}
-                        {{ form.username(class="form-control" + (" is-invalid" if form.username.errors else "")) }}
-                        {% for error in form.username.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
+                    
+                    <!-- Personal Details Section -->
+                    <div class="form-section mb-4">
+                        <h3 class="h5 mb-3 text-primary">Personal Details</h3>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                {{ form.first_name.label(class="form-label") }}
+                                {{ form.first_name(class="form-control" + (" is-invalid" if form.first_name.errors else "")) }}
+                                {% for error in form.first_name.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.surname.label(class="form-label") }}
+                                {{ form.surname(class="form-control" + (" is-invalid" if form.surname.errors else "")) }}
+                                {% for error in form.surname.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-12">
+                                {{ form.other_names.label(class="form-label") }}
+                                {{ form.other_names(class="form-control" + (" is-invalid" if form.other_names.errors else "")) }}
+                                {% for error in form.other_names.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.date_of_birth.label(class="form-label") }}
+                                {{ form.date_of_birth(class="form-control" + (" is-invalid" if form.date_of_birth.errors else ""), type="date") }}
+                                {% for error in form.date_of_birth.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.national_id.label(class="form-label") }}
+                                {{ form.national_id(class="form-control" + (" is-invalid" if form.national_id.errors else "")) }}
+                                {% for error in form.national_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        {{ form.email.label(class="form-label") }}
-                        {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else "")) }}
-                        {% for error in form.email.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
+
+                    <!-- Contact Information Section -->
+                    <div class="form-section mb-4">
+                        <h3 class="h5 mb-3 text-primary">Contact Information</h3>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                {{ form.phone_number.label(class="form-label") }}
+                                {{ form.phone_number(class="form-control" + (" is-invalid" if form.phone_number.errors else "")) }}
+                                {% for error in form.phone_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.alt_phone_number.label(class="form-label") }}
+                                {{ form.alt_phone_number(class="form-control" + (" is-invalid" if form.alt_phone_number.errors else "")) }}
+                                {% for error in form.alt_phone_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-12">
+                                {{ form.email.label(class="form-label") }}
+                                {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else "")) }}
+                                {% for error in form.email.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        {{ form.password.label(class="form-label") }}
-                        {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else "")) }}
-                        {% for error in form.password.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
+
+                    <!-- Address Section -->
+                    <div class="form-section mb-4">
+                        <h3 class="h5 mb-3 text-primary">Address</h3>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                {{ form.physical_address.label(class="form-label") }}
+                                {{ form.physical_address(class="form-control" + (" is-invalid" if form.physical_address.errors else "")) }}
+                                {% for error in form.physical_address.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.district.label(class="form-label") }}
+                                {{ form.district(class="form-select" + (" is-invalid" if form.district.errors else "")) }}
+                                {% for error in form.district.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.city_town.label(class="form-label") }}
+                                {{ form.city_town(class="form-control" + (" is-invalid" if form.city_town.errors else "")) }}
+                                {% for error in form.city_town.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        {{ form.confirm_password.label(class="form-label") }}
-                        {{ form.confirm_password(class="form-control" + (" is-invalid" if form.confirm_password.errors else "")) }}
-                        {% for error in form.confirm_password.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
+
+                    <!-- Fishing Details Section -->
+                    <div class="form-section mb-4">
+                        <h3 class="h5 mb-3 text-primary">Fishing Details</h3>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                {{ form.license_type.label(class="form-label") }}
+                                {{ form.license_type(class="form-select" + (" is-invalid" if form.license_type.errors else "")) }}
+                                {% for error in form.license_type.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.fishing_method.label(class="form-label") }}
+                                {{ form.fishing_method(class="form-select" + (" is-invalid" if form.fishing_method.errors else "")) }}
+                                {% for error in form.fishing_method.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-12">
+                                {{ form.fishing_location.label(class="form-label") }}
+                                {{ form.fishing_location(class="form-select" + (" is-invalid" if form.fishing_location.errors else "")) }}
+                                {% for error in form.fishing_location.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Additional Information Section -->
+                    <div class="form-section mb-4">
+                        <h3 class="h5 mb-3 text-primary">Additional Information</h3>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                {{ form.hear_about.label(class="form-label") }}
+                                {{ form.hear_about(class="form-select" + (" is-invalid" if form.hear_about.errors else "")) }}
+                                {% for error in form.hear_about.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Security Section -->
+                    <div class="form-section mb-4">
+                        <h3 class="h5 mb-3 text-primary">Account Security</h3>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="password-toggle">
+                                    {{ form.password.label(class="form-label") }}
+                                    {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else ""), id="password") }}
+                                    <span class="toggle-icon" data-target="password" onclick="togglePasswordVisibility('password')">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                    {% for error in form.password.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="password-toggle">
+                                    {{ form.confirm_password.label(class="form-label") }}
+                                    {{ form.confirm_password(class="form-control" + (" is-invalid" if form.confirm_password.errors else ""), id="confirm_password") }}
+                                    <span class="toggle-icon" data-target="confirm_password" onclick="togglePasswordVisibility('confirm_password')">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                    {% for error in form.confirm_password.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="d-grid gap-2">
-                        {{ form.submit(class="btn btn-primary") }}
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
                     </div>
                 </form>
             </div>

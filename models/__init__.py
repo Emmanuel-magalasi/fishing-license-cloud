@@ -9,8 +9,32 @@ def load_user(user_id):
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    username = db.Column(db.String(80), unique=True, nullable=False)
+    # Personal Details
+    first_name = db.Column(db.String(50), nullable=False)
+    surname = db.Column(db.String(50), nullable=False)
+    other_names = db.Column(db.String(100))
+    date_of_birth = db.Column(db.Date, nullable=False)
+    national_id = db.Column(db.String(50), unique=True, nullable=False)
+    
+    # Contact Information
+    phone_number = db.Column(db.String(15), nullable=False)
+    alt_phone_number = db.Column(db.String(15))
+    email = db.Column(db.String(120), unique=True)
+    
+    # Address
+    physical_address = db.Column(db.String(200), nullable=False)
+    district = db.Column(db.String(50), nullable=False)
+    city_town = db.Column(db.String(100), nullable=False)
+    
+    # Fishing Details
+    license_type = db.Column(db.String(50), nullable=False)
+    fishing_method = db.Column(db.String(50), nullable=False)
+    fishing_location = db.Column(db.String(50), nullable=False)
+    
+    # Additional Information
+    hear_about = db.Column(db.String(50), nullable=False)
+    
+    # Account Security
     password_hash = db.Column(db.String(256))
     role = db.Column(db.String(20), nullable=False, default='user')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
