@@ -46,6 +46,26 @@ main {
     border-color: #80bdff;
 }
 
+.password-field-container {
+    position: relative;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0;
+}
+
+.password-toggle-btn:hover {
+    color: #495057;
+}
+
 /* Buttons */
 .btn {
     font-weight: 500;
