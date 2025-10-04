@@ -55,15 +55,19 @@ main {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    border: none;
     background: none;
-    color: #6c757d;
-    cursor: pointer;
+    border: none;
     padding: 0;
+    cursor: pointer;
+    color: #6c757d;
 }
 
 .password-toggle-btn:hover {
     color: #495057;
+}
+
+.password-toggle-btn:focus {
+    outline: none;
 }
 
 /* Buttons */
