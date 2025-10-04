@@ -22,72 +22,84 @@
     {% endif %}
 </div>
 
-<div class="row mt-5">
-    <div class="col-md-4 mb-4">
-        <div class="feature-card card h-100 border-0 shadow-sm">
-            <div class="card-img-top text-center p-4">
-                <img src="{{ url_for('static', filename='images/easy-process.svg') }}" alt="Easy Process" class="feature-icon" style="width: 80px; height: 80px;">
+<div class="features-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Features</h2>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card card h-100 border-0 shadow-sm">
+                    <div class="card-img-top text-center p-4">
+                        <img src="{{ url_for('static', filename='images/easy-process.svg') }}" alt="Easy Process" class="feature-icon" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="card-body text-center p-4">
+                        <h3 class="card-title h5 mb-3">Easy Application Process</h3>
+                        <p class="card-text">Complete your hunting or fishing license application in minutes with our streamlined online process. Our user-friendly interface guides you through each step.</p>
+                    </div>
+                </div>
             </div>
-            <div class="card-body text-center">
-                <h5 class="card-title">Easy Application Process</h5>
-                <p class="card-text">Complete your hunting or fishing license application in minutes with our streamlined online process.</p>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card card h-100 border-0 shadow-sm">
+                    <div class="card-img-top text-center p-4">
+                        <img src="{{ url_for('static', filename='images/digital-license.svg') }}" alt="Digital License" class="feature-icon" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="card-body text-center p-4">
+                        <h3 class="card-title h5 mb-3">Digital License Management</h3>
+                        <p class="card-text">Access and download your approved licenses anytime, anywhere. Our secure digital storage system keeps all your permits organized and readily available.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="feature-card card h-100 border-0 shadow-sm">
-            <div class="card-img-top text-center p-4">
-                <img src="{{ url_for('static', filename='images/digital-license.svg') }}" alt="Digital License" class="feature-icon" style="width: 80px; height: 80px;">
-            </div>
-            <div class="card-body text-center">
-                <h5 class="card-title">Digital License Management</h5>
-                <p class="card-text">Access and download your approved licenses anytime, anywhere. Convenient digital storage for all your permits.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="feature-card card h-100 border-0 shadow-sm">
-            <div class="card-img-top text-center p-4">
-                <img src="{{ url_for('static', filename='images/quick-process.svg') }}" alt="Quick Processing" class="feature-icon" style="width: 80px; height: 80px;">
-            </div>
-            <div class="card-body text-center">
-                <h5 class="card-title">Quick Processing</h5>
-                <p class="card-text">Get your hunting and fishing licenses approved quickly by our dedicated administrative team.</p>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card card h-100 border-0 shadow-sm">
+                    <div class="card-img-top text-center p-4">
+                        <img src="{{ url_for('static', filename='images/quick-process.svg') }}" alt="Quick Processing" class="feature-icon" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="card-body text-center p-4">
+                        <h3 class="card-title h5 mb-3">Quick Processing</h3>
+                        <p class="card-text">Get your hunting and fishing licenses approved quickly by our dedicated administrative team. We prioritize efficiency without compromising thoroughness.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="locations-section my-5 p-4 bg-light rounded">
-    <h2 class="text-center mb-4">Popular Locations</h2>
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="location-card card border-0 shadow-sm">
-                <img src="{{ url_for('static', filename='images/lake-malawi.svg') }}" class="card-img-top" alt="Lake Malawi">
-                <div class="card-body">
-                    <h5 class="card-title">Lake Malawi</h5>
-                    <p class="card-text">Experience world-class fishing in one of Africa's largest freshwater lakes.</p>
+<div class="locations-section py-5 mt-4">
+    <div class="container">
+        <h2 class="text-center mb-5">Popular Locations</h2>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="location-card card h-100 border-0 shadow-sm">
+                    <div class="card-img-top p-4 bg-light text-center">
+                        <img src="{{ url_for('static', filename='images/lake-malawi.svg') }}" class="img-fluid" alt="Lake Malawi" style="max-height: 200px;">
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="card-title h5 mb-3">Lake Malawi</h3>
+                        <p class="card-text">Experience world-class fishing in one of Africa's largest freshwater lakes. Home to diverse aquatic species and perfect for both sport and commercial fishing.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="location-card card border-0 shadow-sm">
-                <img src="{{ url_for('static', filename='images/shire-river.svg') }}" class="card-img-top" alt="Shire River">
-                <div class="card-body">
-                    <h5 class="card-title">Shire River</h5>
-                    <p class="card-text">Perfect for both recreational and commercial fishing activities.</p>
+            <div class="col-lg-4 col-md-6">
+                <div class="location-card card h-100 border-0 shadow-sm">
+                    <div class="card-img-top p-4 bg-light text-center">
+                        <img src="{{ url_for('static', filename='images/shire-river.svg') }}" class="img-fluid" alt="Shire River" style="max-height: 200px;">
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="card-title h5 mb-3">Shire River</h3>
+                        <p class="card-text">Perfect for both recreational and commercial fishing activities. The river offers excellent opportunities for various fishing techniques throughout the year.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="location-card card border-0 shadow-sm">
-                <img src="{{ url_for('static', filename='images/hunting-zones.svg') }}" class="card-img-top" alt="Hunting Zones">
-                <div class="card-body">
-                    <h5 class="card-title">Hunting Zones</h5>
-                    <p class="card-text">Designated areas for safe and regulated hunting activities.</p>
+            <div class="col-lg-4 col-md-6">
+                <div class="location-card card h-100 border-0 shadow-sm">
+                    <div class="card-img-top p-4 bg-light text-center">
+                        <img src="{{ url_for('static', filename='images/hunting-zones.svg') }}" class="img-fluid" alt="Hunting Zones" style="max-height: 200px;">
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="card-title h5 mb-3">Hunting Zones</h3>
+                        <p class="card-text">Designated areas for safe and regulated hunting activities. Our zones are carefully selected to ensure sustainable wildlife management and hunter safety.</p>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 {% endblock %}
