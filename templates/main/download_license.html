@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">License Download</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Payment Verified Successfully!</h4>
+                    <p class="mb-4">Your fishing license is now ready for download.</p>
+                    
+                    <div class="license-details mb-4">
+                        <p><strong>License ID:</strong> {{ license.id }}</p>
+                        <p><strong>Full Name:</strong> {{ license.full_name }}</p>
+                        <p><strong>Fishing Zone:</strong> {{ license.fishing_zone }}</p>
+                        <p><strong>Duration:</strong> {{ license.duration }} months</p>
+                    </div>
+
+                    <div class="download-section">
+                        <a href="{{ url_for('license.download_license', license_id=license.id) }}" 
+                           class="btn btn-primary btn-lg">
+                            <i class="fas fa-download me-2"></i>Download License PDF
+                        </a>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

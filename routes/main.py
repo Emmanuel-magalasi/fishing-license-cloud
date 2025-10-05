@@ -58,13 +58,27 @@ def make_payment(license_id):
     
     if license.payment_status == 'completed':
         flash('Payment has already been completed for this license.', 'info')
-        return redirect(url_for('main.view_license', license_id=license_id))
+        return redirect(url_for('main.download_license', license_id=license_id))
     
     if not license.payment_method or not license.payment_amount:
         flash('Payment has not been initiated by admin yet.', 'warning')
         return redirect(url_for('main.view_license', license_id=license_id))
     
     return render_template('main/make_payment.html', title='Make Payment', license=license)
+
+@main.route('/license/<int:license_id>/download')
+@login_required
+def download_license(license_id):
+    license = License.query.get_or_404(license_id)
+    if license.user_id != current_user.id:
+        flash('You do not have permission to access this license.', 'danger')
+        return redirect(url_for('main.dashboard'))
+    
+    if license.payment_status != 'completed':
+        flash('Payment must be completed before accessing the download page.', 'warning')
+        return redirect(url_for('main.make_payment', license_id=license_id))
+    
+    return render_template('main/download_license.html', title='Download License', license=license)
 
 @main.route('/license/<int:license_id>/cancel', methods=['POST'])
 @login_required
