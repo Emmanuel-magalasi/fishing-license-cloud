@@ -48,6 +48,24 @@ def view_license(license_id):
     
     return render_template('main/view_license.html', title='License Details', license=license)
 
+@main.route('/make-payment/<int:license_id>')
+@login_required
+def make_payment(license_id):
+    license = License.query.get_or_404(license_id)
+    if license.user_id != current_user.id:
+        flash('You do not have permission to make payment for this license.', 'danger')
+        return redirect(url_for('main.dashboard'))
+    
+    if license.payment_status == 'completed':
+        flash('Payment has already been completed for this license.', 'info')
+        return redirect(url_for('main.view_license', license_id=license_id))
+    
+    if not license.payment_method or not license.payment_amount:
+        flash('Payment has not been initiated by admin yet.', 'warning')
+        return redirect(url_for('main.view_license', license_id=license_id))
+    
+    return render_template('main/make_payment.html', title='Make Payment', license=license)
+
 @main.route('/license/<int:license_id>/cancel', methods=['POST'])
 @login_required
 def cancel_license(license_id):

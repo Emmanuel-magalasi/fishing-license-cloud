@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Make Payment</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5>License Application Details</h5>
+                        <p class="mb-1"><strong>Applicant:</strong> {{ license.full_name }}</p>
+                        <p class="mb-1"><strong>License ID:</strong> {{ license.id }}</p>
+                        <p class="mb-1"><strong>Amount Due:</strong> MWK {{ "%.2f"|format(license.payment_amount) }}</p>
+                        <p class="mb-1"><strong>Payment Method:</strong> {{ license.payment_method|title|replace('_', ' ') }}</p>
+                    </div>
+
+                    <div class="payment-instructions mt-4">
+                        <h5>Payment Instructions</h5>
+                        {% if license.payment_method == 'bank_deposit' %}
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item">Visit any branch of National Bank of Malawi</li>
+                            <li class="list-group-item">Provide the teller with your License ID: {{ license.id }}</li>
+                            <li class="list-group-item">Make payment of MWK {{ "%.2f"|format(license.payment_amount) }}</li>
+                            <li class="list-group-item">Keep your deposit slip safe</li>
+                        </ol>
+                        {% elif license.payment_method == 'mpamba' %}
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item">Dial *444#</li>
+                            <li class="list-group-item">Select Payment Options</li>
+                            <li class="list-group-item">Enter Business Number: 123456</li>
+                            <li class="list-group-item">Enter Amount: MWK {{ "%.2f"|format(license.payment_amount) }}</li>
+                            <li class="list-group-item">Enter Reference Number: {{ license.id }}</li>
+                            <li class="list-group-item">Confirm Payment</li>
+                        </ol>
+                        {% elif license.payment_method == 'airtel_money' %}
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item">Dial *211#</li>
+                            <li class="list-group-item">Select Make Payment</li>
+                            <li class="list-group-item">Enter Merchant Code: 789012</li>
+                            <li class="list-group-item">Enter Amount: MWK {{ "%.2f"|format(license.payment_amount) }}</li>
+                            <li class="list-group-item">Enter Reference Number: {{ license.id }}</li>
+                            <li class="list-group-item">Confirm Payment</li>
+                        </ol>
+                        {% endif %}
+                    </div>
+
+                    <div class="alert alert-warning mt-4">
+                        <h5 class="alert-heading">Important Notice</h5>
+                        <p class="mb-0">After completing your payment, please wait for admin verification. Once your payment is verified, you will be able to download your fishing license.</p>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
