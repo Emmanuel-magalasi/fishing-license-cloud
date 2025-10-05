@@ -52,6 +52,9 @@
                     </div>
 
                     <div class="text-center mt-4">
+                        <form action="{{ url_for('main.make_payment', license_id=license.id) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-primary">Proceed Payment</button>
+                        </form>
                         <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
                     </div>
                 </div>

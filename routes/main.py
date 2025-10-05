@@ -48,7 +48,7 @@ def view_license(license_id):
     
     return render_template('main/view_license.html', title='License Details', license=license)
 
-@main.route('/make-payment/<int:license_id>')
+@main.route('/make-payment/<int:license_id>', methods=['GET', 'POST'])
 @login_required
 def make_payment(license_id):
     license = License.query.get_or_404(license_id)
@@ -63,6 +63,16 @@ def make_payment(license_id):
     if not license.payment_method or not license.payment_amount:
         flash('Payment has not been initiated by admin yet.', 'warning')
         return redirect(url_for('main.view_license', license_id=license_id))
+    
+    if request.method == 'POST':
+        # In a real application, you would integrate with actual payment gateway here
+        # For demo purposes, we'll simulate a successful payment
+        license.payment_status = 'completed'
+        license.payment_date = datetime.utcnow()
+        db.session.commit()
+        
+        flash('Payment processed successfully! You can now download your license.', 'success')
+        return redirect(url_for('main.download_license', license_id=license_id))
     
     return render_template('main/make_payment.html', title='Make Payment', license=license)
 
