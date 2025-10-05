@@ -2,34 +2,37 @@
 {% block content %}
 <div class="hero-section position-relative mb-5">
     <div class="hero-image-overlay"></div>
-    <div class="hero-content text-center text-white p-5">
-        <h1 class="display-4">Welcome to the Hunting and Fishing License System</h1>
-        <p class="lead">Your gateway to legal and responsible hunting and fishing in Malawi</p>
-    {% if not current_user.is_authenticated %}
-    <hr class="my-4">
-    <p>Get started by creating an account or logging in to your existing account.</p>
-    <div class="d-grid gap-2 d-md-block">
-        <a class="btn btn-primary btn-lg me-2" href="{{ url_for('auth.register') }}" role="button">Register</a>
-        <a class="btn btn-outline-primary btn-lg" href="{{ url_for('auth.login') }}" role="button">Login</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="hero-content text-center text-white py-5">
+                    <h1 class="display-4 mb-4">Welcome to the Hunting and Fishing License System</h1>
+                    <p class="lead mb-4">Your gateway to legal and responsible hunting and fishing in Malawi</p>
+                    {% if not current_user.is_authenticated %}
+                    <div class="cta-buttons mt-4">
+                        <a class="btn btn-primary btn-lg me-3" href="{{ url_for('auth.register') }}" role="button">Register</a>
+                        <a class="btn btn-outline-light btn-lg" href="{{ url_for('auth.login') }}" role="button">Login</a>
+                    </div>
+                    {% else %}
+                    <div class="cta-buttons mt-4">
+                        <a class="btn btn-primary btn-lg me-3" href="{{ url_for('main.dashboard') }}" role="button">Go to Dashboard</a>
+                        <a class="btn btn-success btn-lg" href="{{ url_for('main.apply_license') }}" role="button">Apply for License</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    {% else %}
-    <hr class="my-4">
-    <p>Access your dashboard to view your licenses or apply for a new one.</p>
-    <div class="d-grid gap-2 d-md-block">
-        <a class="btn btn-primary btn-lg me-2" href="{{ url_for('main.dashboard') }}" role="button">Go to Dashboard</a>
-        <a class="btn btn-success btn-lg" href="{{ url_for('main.apply_license') }}" role="button">Apply for License</a>
-    </div>
-    {% endif %}
 </div>
 
 <div class="features-section py-5 bg-light">
     <div class="container">
-        <h2 class="text-center mb-5">Our Features</h2>
-        <div class="row g-4">
+        <h2 class="text-center display-5 mb-5">Our Features</h2>
+        <div class="row g-4 justify-content-center">
             <div class="col-lg-4 col-md-6">
-                <div class="feature-card card h-100 border-0 shadow-sm">
+                <div class="feature-card card h-100 border-0 shadow-sm hover-shadow">
                     <div class="card-img-top text-center p-4">
-                        <img src="{{ url_for('static', filename='images/easy-process.svg') }}" alt="Easy Process" class="feature-icon" style="width: 100px; height: 100px;">
+                        <img src="{{ url_for('static', filename='images/easy-process.svg') }}" alt="Easy Process" class="feature-icon mb-3" style="width: 120px; height: 120px;">
                     </div>
                     <div class="card-body text-center p-4">
                         <h3 class="card-title h5 mb-3">Easy Application Process</h3>
@@ -63,10 +66,10 @@
     </div>
 </div>
 
-<div class="locations-section py-5 mt-4">
+<div class="locations-section py-5">
     <div class="container">
-        <h2 class="text-center mb-5">Popular Locations</h2>
-        <div class="row g-4">
+        <h2 class="text-center display-5 mb-5">Popular Locations</h2>
+        <div class="row g-4 justify-content-center">
             <div class="col-lg-4 col-md-6">
                 <div class="location-card card h-100 border-0 shadow-sm">
                     <div class="card-img-top p-4 bg-light text-center">
