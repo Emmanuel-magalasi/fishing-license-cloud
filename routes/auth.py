@@ -14,8 +14,16 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(
-            username=form.username.data,
+            first_name=form.first_name.data,
+            surname=form.surname.data,
+            other_names=form.other_names.data,
+            date_of_birth=form.date_of_birth.data,
+            national_id=form.national_id.data,
+            phone_number=form.phone_number.data,
+            alt_phone_number=form.alt_phone_number.data,
             email=form.email.data,
+            physical_address=form.physical_address.data,
+            district=form.district.data,
             role='user'
         )
         user.set_password(form.password.data)
