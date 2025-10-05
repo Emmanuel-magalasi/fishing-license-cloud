@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Verify Payment - License #{{ license.id }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h4>License Details</h4>
+                        <p><strong>Applicant:</strong> {{ license.full_name }}</p>
+                        <p><strong>Fishing Zone:</strong> {{ license.fishing_zone }}</p>
+                        <p><strong>Duration:</strong> {{ license.duration }} months</p>
+                        <p><strong>Amount:</strong> MWK {{ license.payment_amount }}</p>
+                    </div>
+
+                    <form method="POST">
+                        <div class="mb-4">
+                            <h4>Payment Verification</h4>
+                            <div class="form-group mb-3">
+                                <label for="payment_reference" class="form-label">Payment Reference Number</label>
+                                <input type="text" class="form-control" id="payment_reference" name="payment_reference" required>
+                                <div class="form-text">Enter the payment reference number from the user's payment receipt.</div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <h5 class="alert-heading">Verification Guidelines</h5>
+                            <ul class="mb-0">
+                                <li>Verify that the payment amount matches the license fee</li>
+                                <li>Confirm the payment reference number is valid</li>
+                                <li>Check that the payment date is within acceptable timeframe</li>
+                            </ul>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Confirm Payment</button>
+                            <a href="{{ url_for('admin.manage_licenses') }}" class="btn btn-secondary ms-2">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

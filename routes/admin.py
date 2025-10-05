@@ -111,23 +111,23 @@ def manage_users():
     users = User.query.filter_by(role='user').order_by(User.created_at.desc()).all()
     return render_template('admin/users.html', title='Manage Users', users=users)
 
-@admin.route('/admin/payment/initiate/<int:license_id>', methods=['GET', 'POST'])
+@admin.route('/admin/payment/verify/<int:license_id>', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def initiate_payment(license_id):
+def verify_payment(license_id):
     license = License.query.get_or_404(license_id)
     if request.method == 'POST':
-        license.payment_method = request.form.get('payment_method')
-        if license.payment_method == 'bank_deposit':
-            license.bank_name = request.form.get('bank_name')
-        
-        # Send notification to user (placeholder for email/SMS integration)
-        # TODO: Implement actual notification system
-        
-        flash('Payment initiation successful. Awaiting payment confirmation.', 'success')
-        return redirect(url_for('admin.manage_licenses'))
+        payment_reference = request.form.get('payment_reference')
+        if payment_reference:
+            license.payment_status = 'completed'
+            license.payment_reference = payment_reference
+            license.payment_date = datetime.utcnow()
+            db.session.commit()
+            flash('Payment verified successfully.', 'success')
+            return redirect(url_for('admin.manage_licenses'))
+        flash('Payment reference is required.', 'danger')
     
-    return render_template('admin/initiate_payment.html', title='Initiate Payment', license=license)
+    return render_template('admin/verify_payment.html', title='Verify Payment', license=license)
 
 @admin.route('/admin/payment/confirm/<int:license_id>', methods=['POST'])
 @login_required

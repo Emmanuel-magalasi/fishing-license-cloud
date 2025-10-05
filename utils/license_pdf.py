@@ -27,9 +27,18 @@ def generate_license_pdf(license_data, output_path):
     styles.add(ParagraphStyle(
         name='CustomTitle',
         parent=styles['Heading1'],
-        fontSize=16,
+        fontSize=20,
         spaceAfter=30,
-        alignment=1  # Center alignment
+        alignment=1,  # Center alignment
+        textColor=colors.HexColor('#1a5f7a')
+    ))
+    
+    styles.add(ParagraphStyle(
+        name='OfficialStamp',
+        parent=styles['Normal'],
+        fontSize=14,
+        alignment=1,
+        textColor=colors.HexColor('#1a5f7a')
     ))
     
     # Content elements
@@ -50,14 +59,16 @@ def generate_license_pdf(license_data, output_path):
     
     # License Details
     license_info = [
+        ['License Number:', license_data.get('license_number', '')],
         ['License Holder:', license_data.get('full_name', '')],
         ['National ID/Passport:', license_data.get('id_number', '')],
-        ['License Type:', license_data.get('license_type', '')],
-        ['Fishing Method:', license_data.get('fishing_method', '')],
-        ['Fishing Location:', license_data.get('fishing_location', '')],
-        ['Start Date:', datetime.now().strftime('%d-%m-%Y')],
-        ['Expiry Date:', (datetime.now() + timedelta(days=365)).strftime('%d-%m-%Y')],
-        ['License Number:', license_data.get('license_number', '')],
+        ['License Type:', 'Fishing License'],
+        ['Fishing Zone:', license_data.get('fishing_zone', '')],
+        ['Duration:', f"{license_data.get('duration', '')} months"],
+        ['Issue Date:', datetime.now().strftime('%d-%m-%Y')],
+        ['Expiry Date:', (datetime.now() + timedelta(days=int(license_data.get('duration', 1)) * 30)).strftime('%d-%m-%Y')],
+        ['Payment Status:', 'PAID'],
+        ['Payment Reference:', license_data.get('payment_reference', '')]
     ]
     
     # Create and style the table
@@ -78,9 +89,38 @@ def generate_license_pdf(license_data, output_path):
     elements.append(table)
     elements.append(Spacer(1, 30))
     
-    # Digital Stamp/Watermark
+    # Official Stamp
+    elements.append(Spacer(1, 30))
+    stamp_canvas = Canvas(None)
+    stamp_canvas.setFillColor(colors.HexColor('#1a5f7a'))
+    stamp_canvas.setStrokeColor(colors.HexColor('#1a5f7a'))
+    
+    # Create circular stamp
+    stamp = Drawing(150, 150)
+    circle = Circle(75, 75, 70)
+    circle.strokeColor = colors.HexColor('#1a5f7a')
+    circle.strokeWidth = 2
+    circle.fillColor = None
+    stamp.add(circle)
+    
+    # Add inner circle
+    inner_circle = Circle(75, 75, 65)
+    inner_circle.strokeColor = colors.HexColor('#1a5f7a')
+    inner_circle.strokeWidth = 1
+    inner_circle.fillColor = None
+    stamp.add(inner_circle)
+    
+    elements.append(stamp)
+    
+    # Stamp Text
     elements.append(Paragraph(
-        '<para alignment="center">OFFICIAL DOCUMENT - VOID IF ALTERED</para>',
+        'DEPARTMENT OF FISHERIES<br/>REPUBLIC OF MALAWI<br/>OFFICIAL LICENSE',
+        styles['OfficialStamp']
+    ))
+    
+    elements.append(Spacer(1, 20))
+    elements.append(Paragraph(
+        '<para alignment="center"><b>OFFICIAL DOCUMENT - VOID IF ALTERED</b></para>',
         styles['Heading2']
     ))
     

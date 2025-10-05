@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .hero-image-overlay {
@@ -14,7 +15,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
     z-index: 1;
 }
 
@@ -34,6 +35,81 @@
 
 .feature-icon {
     color: #0d6efd;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+}
+
+/* Password Field Styling */
+.password-toggle {
+    position: relative;
+}
+
+.password-toggle .input-group-text {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding-right: 0;
+}
+
+.password-toggle .input-group-text i {
+    color: #6c757d;
+}
+
+.password-toggle .input-group-text:hover i {
+    color: #495057;
+}
+
+/* Official Stamp Style */
+.official-stamp {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border: 2px solid #1a5f7a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    transform: rotate(-15deg);
+    opacity: 0.8;
+}
+
+.official-stamp::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid #1a5f7a;
+    border-radius: 50%;
+}
+
+.official-stamp-text {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    color: #1a5f7a;
+    line-height: 1.2;
+    font-size: 14px;
+}
+
+/* Payment Status Indicators */
+.payment-status {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+}
+
+.payment-status.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.payment-status.completed {
+    background-color: #d4edda;
+    color: #155724;
 }
 
 .location-card {

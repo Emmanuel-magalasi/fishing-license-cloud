@@ -3,25 +3,40 @@
 <div class="container py-4">
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card license-card">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="card-title mb-0">License Details</h3>
+                    <h3 class="mb-0">License Details</h3>
                     <a href="{{ url_for('main.dashboard') }}" class="btn btn-light">Back to Dashboard</a>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="mb-3">Personal Information</h4>
-                            <table class="table">
-                                <tr>
-                                    <th width="30%">Full Name:</th>
-                                    <td>{{ license.full_name }}</td>
-                                </tr>
-                                <tr>
-                                    <th>ID Number:</th>
-                                    <td>{{ license.id_number }}</td>
-                                </tr>
-                            </table>
+                            <div class="mb-4">
+                                <h4 class="border-bottom pb-2">Personal Information</h4>
+                                <p><strong>Full Name:</strong> {{ license.full_name }}</p>
+                                <p><strong>ID Number:</strong> {{ license.id_number }}</p>
+                                <p><strong>Application Date:</strong> {{ license.created_at.strftime('%Y-%m-%d') }}</p>
+                                {% if license.approved_at %}
+                                <p><strong>Approval Date:</strong> {{ license.approved_at.strftime('%Y-%m-%d') }}</p>
+                                {% endif %}
+                            </div>
+                            {% if license.status == 'approved' %}
+                            <div class="mb-4">
+                                <h4 class="border-bottom pb-2">Payment Information</h4>
+                                <p><strong>Payment Status:</strong>
+                                    <span class="payment-status {% if license.payment_status == 'completed' %}completed{% else %}pending{% endif %}">
+                                        {{ license.payment_status|default('Pending')|title }}
+                                    </span>
+                                </p>
+                                {% if license.payment_amount %}
+                                <p><strong>Amount:</strong> MWK {{ license.payment_amount }}</p>
+                                {% endif %}
+                                {% if not license.payment_status or license.payment_status == 'pending' %}
+                                <a href="{{ url_for('main.make_payment', license_id=license.id) }}" 
+                                   class="btn btn-warning mt-3">Proceed to Payment</a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="col-md-6">
                             <h4 class="mb-3">License Information</h4>

@@ -54,9 +54,14 @@
                                         <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
                                     </form>
                                     {% endif %}
-                                    {% if license.status == 'approved' and license.pdf_path %}
-                                    <a href="{{ url_for('static', filename=license.pdf_path) }}" 
-                                       class="btn btn-sm btn-success" target="_blank">Download PDF</a>
+                                    {% if license.status == 'approved' %}
+                                        {% if license.payment_status == 'completed' and license.pdf_path %}
+                                            <a href="{{ url_for('static', filename=license.pdf_path) }}" 
+                                               class="btn btn-sm btn-success" target="_blank">Download PDF</a>
+                                        {% elif not license.payment_status or license.payment_status == 'pending' %}
+                                            <a href="{{ url_for('main.make_payment', license_id=license.id) }}" 
+                                               class="btn btn-sm btn-warning">Make Payment</a>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
                             </tr>
