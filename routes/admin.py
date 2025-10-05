@@ -168,7 +168,7 @@ def confirm_payment(license_id):
     flash('Payment confirmed and license PDF generated successfully!', 'success')
     return redirect(url_for('admin.manage_licenses'))
 
-@admin.route('/admin/download/<int:license_id')}]}}}}
+@admin.route('/admin/download/<int:license_id>')
 @login_required
 @admin_required
 def download_license(license_id):
