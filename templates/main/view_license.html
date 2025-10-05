@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">License Details</h3>
+                    <a href="{{ url_for('main.dashboard') }}" class="btn btn-light">Back to Dashboard</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="mb-3">Personal Information</h4>
+                            <table class="table">
+                                <tr>
+                                    <th width="30%">Full Name:</th>
+                                    <td>{{ license.full_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>ID Number:</th>
+                                    <td>{{ license.id_number }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="mb-3">License Information</h4>
+                            <table class="table">
+                                <tr>
+                                    <th width="30%">License ID:</th>
+                                    <td>{{ license.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status:</th>
+                                    <td>
+                                        <span class="badge {% if license.status == 'approved' %}bg-success
+                                                     {% elif license.status == 'rejected' %}bg-danger
+                                                     {% elif license.status == 'cancelled' %}bg-secondary
+                                                     {% else %}bg-warning{% endif %}">
+                                            {{ license.status.title() }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Fishing Zone:</th>
+                                    <td>{{ license.fishing_zone }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Duration:</th>
+                                    <td>{{ license.duration }} months</td>
+                                </tr>
+                                <tr>
+                                    <th>Applied Date:</th>
+                                    <td>{{ license.created_at.strftime('%Y-%m-%d') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                                {% if license.status == 'pending' %}
+                                <form action="{{ url_for('main.cancel_license', license_id=license.id) }}" method="POST" 
+                                      onsubmit="return confirm('Are you sure you want to cancel this license application?');">
+                                    <button type="submit" class="btn btn-danger">Cancel Application</button>
+                                </form>
+                                {% endif %}
+                                
+                                {% if license.status == 'approved' and license.pdf_path %}
+                                <a href="{{ url_for('static', filename=license.pdf_path) }}" 
+                                   class="btn btn-success" target="_blank">Download License PDF</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

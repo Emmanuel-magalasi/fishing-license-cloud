@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, current_app
+from flask import Blueprint, render_template, flash, redirect, url_for, current_app, request
 from flask_login import login_required, current_user
 from datetime import datetime
 from models import License, db
@@ -47,3 +47,22 @@ def view_license(license_id):
         return redirect(url_for('main.dashboard'))
     
     return render_template('main/view_license.html', title='License Details', license=license)
+
+@main.route('/license/<int:license_id>/cancel', methods=['POST'])
+@login_required
+def cancel_license(license_id):
+    license = License.query.get_or_404(license_id)
+    
+    if license.user_id != current_user.id:
+        flash('You do not have permission to cancel this license.', 'danger')
+        return redirect(url_for('main.dashboard'))
+    
+    if license.status != 'pending':
+        flash('Only pending licenses can be cancelled.', 'warning')
+        return redirect(url_for('main.view_license', license_id=license.id))
+    
+    license.status = 'cancelled'
+    db.session.commit()
+    
+    flash('Your license application has been cancelled successfully.', 'success')
+    return redirect(url_for('main.dashboard'))

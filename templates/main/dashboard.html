@@ -48,6 +48,12 @@
                                 <td>
                                     <a href="{{ url_for('main.view_license', license_id=license.id) }}" 
                                        class="btn btn-sm btn-info">View</a>
+                                    {% if license.status == 'pending' %}
+                                    <form action="{{ url_for('main.cancel_license', license_id=license.id) }}" method="POST" 
+                                          style="display: inline;" onsubmit="return confirm('Are you sure you want to cancel this license application?');">
+                                        <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                    </form>
+                                    {% endif %}
                                     {% if license.status == 'approved' and license.pdf_path %}
                                     <a href="{{ url_for('static', filename=license.pdf_path) }}" 
                                        class="btn btn-sm btn-success" target="_blank">Download PDF</a>
