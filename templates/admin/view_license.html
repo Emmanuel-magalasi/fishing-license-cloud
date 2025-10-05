@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">License Application Details</h3>
+                    <a href="{{ url_for('admin.manage_licenses') }}" class="btn btn-light btn-sm">Back to Licenses</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Personal Information</h4>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th width="30%">Full Name:</th>
+                                    <td>{{ license.full_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>National ID:</th>
+                                    <td>{{ license.id_number }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone Number:</th>
+                                    <td>{{ license.user.phone_number }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Alt. Phone:</th>
+                                    <td>{{ license.user.alt_phone_number }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email:</th>
+                                    <td>{{ license.user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address:</th>
+                                    <td>{{ license.user.physical_address }}</td>
+                                </tr>
+                                <tr>
+                                    <th>District:</th>
+                                    <td>{{ license.user.district }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>License Details</h4>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th width="30%">License ID:</th>
+                                    <td>{{ license.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Fishing Zone:</th>
+                                    <td>{{ license.fishing_zone }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Duration:</th>
+                                    <td>{{ license.duration }} months</td>
+                                </tr>
+                                <tr>
+                                    <th>Status:</th>
+                                    <td>
+                                        <span class="badge bg-{{ 'warning' if license.status == 'pending' else 'success' if license.status == 'approved' else 'danger' }}">
+                                            {{ license.status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Applied Date:</th>
+                                    <td>{{ license.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                </tr>
+                                {% if license.approved_at %}
+                                <tr>
+                                    <th>Approved Date:</th>
+                                    <td>{{ license.approved_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+
+                    {% if license.status == 'pending' %}
+                    <div class="row mt-4">
+                        <div class="col-12 text-center">
+                            <div class="btn-group" role="group">
+                                <a href="{{ url_for('admin.process_license', license_id=license.id, action='approve') }}" 
+                                   class="btn btn-success">Approve Application</a>
+                                <a href="{{ url_for('admin.process_license', license_id=license.id, action='cancel') }}" 
+                                   class="btn btn-danger">Cancel Application</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

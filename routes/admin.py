@@ -39,17 +39,24 @@ def manage_licenses():
     licenses = License.query.order_by(License.created_at.desc()).all()
     return render_template('admin/licenses.html', title='Manage Licenses', licenses=licenses)
 
-@admin.route('/admin/license/<int:license_id>/<action>')
+@admin.route('/admin/license/<int:license_id>/<action>', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def process_license(license_id, action):
     license = License.query.get_or_404(license_id)
+    
+    if action == 'view':
+        return render_template('admin/view_license.html', title='View License', license=license)
     
     if action == 'approve' and license.status == 'pending':
         license.status = 'approved'
         license.approved_at = datetime.utcnow()
         license.approved_by = current_user.id
         license.start_date = datetime.utcnow()
+        
+        # Calculate payment amount based on duration
+        base_fee = 5000  # Base fee in Malawian Kwacha
+        license.payment_amount = base_fee * license.duration
         
         # Generate QR code
         qr = qrcode.QRCode(version=1, box_size=10, border=5)
@@ -78,7 +85,8 @@ def process_license(license_id, action):
         
         license.pdf_path = f'licenses/{license.id}/license.pdf'
         db.session.commit()
-        flash('License approved and PDF generated successfully!', 'success')
+        flash('License approved! Proceeding to payment initiation.', 'success')
+        return redirect(url_for('admin.initiate_payment', license_id=license.id))
         
     elif action == 'reject' and license.status == 'pending':
         license.status = 'rejected'
@@ -86,6 +94,13 @@ def process_license(license_id, action):
         license.approved_by = current_user.id
         db.session.commit()
         flash('License application rejected.', 'info')
+        return redirect(url_for('admin.manage_licenses'))
+    
+    elif action == 'cancel' and license.status == 'pending':
+        license.status = 'cancelled'
+        db.session.commit()
+        flash('License application cancelled.', 'info')
+        return redirect(url_for('admin.manage_licenses'))
     
     return redirect(url_for('admin.manage_licenses'))
 
@@ -96,7 +111,64 @@ def manage_users():
     users = User.query.filter_by(role='user').order_by(User.created_at.desc()).all()
     return render_template('admin/users.html', title='Manage Users', users=users)
 
-@admin.route('/admin/download/<int:license_id>')
+@admin.route('/admin/payment/initiate/<int:license_id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def initiate_payment(license_id):
+    license = License.query.get_or_404(license_id)
+    if request.method == 'POST':
+        license.payment_method = request.form.get('payment_method')
+        if license.payment_method == 'bank_deposit':
+            license.bank_name = request.form.get('bank_name')
+        
+        # Send notification to user (placeholder for email/SMS integration)
+        # TODO: Implement actual notification system
+        
+        flash('Payment initiation successful. Awaiting payment confirmation.', 'success')
+        return redirect(url_for('admin.manage_licenses'))
+    
+    return render_template('admin/initiate_payment.html', title='Initiate Payment', license=license)
+
+@admin.route('/admin/payment/confirm/<int:license_id>', methods=['POST'])
+@login_required
+@admin_required
+def confirm_payment(license_id):
+    license = License.query.get_or_404(license_id)
+    license.payment_status = 'completed'
+    license.payment_reference = request.form.get('payment_reference')
+    license.payment_date = datetime.utcnow()
+    
+    # Generate QR code and PDF after payment confirmation
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(f'License ID: {license.id}\nName: {license.full_name}\nZone: {license.fishing_zone}')
+    qr.make(fit=True)
+    qr_image = qr.make_image(fill_color="black", back_color="white")
+    
+    qr_path = os.path.join(current_app.root_path, 'static', 'licenses', str(license.id))
+    os.makedirs(qr_path, exist_ok=True)
+    
+    qr_file = os.path.join(qr_path, 'qr.png')
+    qr_image.save(qr_file)
+    
+    pdf_file = os.path.join(qr_path, 'license.pdf')
+    c = canvas.Canvas(pdf_file, pagesize=letter)
+    c.drawString(100, 750, f"Fishing License - {license.full_name}")
+    c.drawString(100, 700, f"License ID: {license.id}")
+    c.drawString(100, 650, f"Fishing Zone: {license.fishing_zone}")
+    c.drawString(100, 600, f"Valid From: {license.start_date.strftime('%Y-%m-%d')}")
+    c.drawString(100, 550, f"Duration: {license.duration} months")
+    c.drawString(100, 500, f"Payment Method: {license.payment_method}")
+    c.drawString(100, 450, f"Payment Reference: {license.payment_reference}")
+    c.drawImage(qr_file, 100, 200, width=200, height=200)
+    c.save()
+    
+    license.pdf_path = f'licenses/{license.id}/license.pdf'
+    db.session.commit()
+    
+    flash('Payment confirmed and license PDF generated successfully!', 'success')
+    return redirect(url_for('admin.manage_licenses'))
+
+@admin.route('/admin/download/<int:license_id')}]}}}}
 @login_required
 @admin_required
 def download_license(license_id):

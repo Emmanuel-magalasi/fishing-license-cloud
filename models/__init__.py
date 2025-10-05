@@ -57,11 +57,17 @@ class License(db.Model):
     fishing_zone = db.Column(db.String(100), nullable=False)
     duration = db.Column(db.Integer, nullable=False)  # Duration in months
     start_date = db.Column(db.DateTime, nullable=True)
-    status = db.Column(db.String(20), default='pending')  # pending, approved, rejected
+    status = db.Column(db.String(20), default='pending')  # pending, approved, rejected, cancelled
     pdf_path = db.Column(db.String(200), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     approved_at = db.Column(db.DateTime, nullable=True)
     approved_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    payment_status = db.Column(db.String(20), default='pending')  # pending, completed, failed
+    payment_method = db.Column(db.String(50), nullable=True)  # bank_deposit, mpamba, airtel_money
+    payment_amount = db.Column(db.Float, nullable=True)
+    payment_reference = db.Column(db.String(100), nullable=True)
+    payment_date = db.Column(db.DateTime, nullable=True)
+    bank_name = db.Column(db.String(100), nullable=True)  # For bank deposits
 
     def __repr__(self):
         return f'<License {self.id} - {self.full_name}>'
